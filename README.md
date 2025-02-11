@@ -1,5 +1,23 @@
 # tauri-egui
 
+Tauri-egui rust package with modified dependencies, for solving tauri version conflicts. 
+
+Cargo Build Error:
+```
+    Updating crates.io index
+error: failed to select a version for `tauri`.
+    ... required by package `app v0.1.0 (/app_path)`
+versions that meet the requirements `^2.2.1` are: 2.2.1, 2.2.5, 2.2.4, 2.2.3, 2.2.2
+
+the package `tauri` links to the native library `Tauri`, but it conflicts with a previous package which links to `Tauri` as well:
+package `tauri v2.0.0-alpha.4`
+    ... which satisfies dependency `tauri = "=2.0.0-alpha.4"` of package `tauri-egui v0.3.0`
+    ... which satisfies dependency `tauri-egui = "^0.3.0"` of package `app v0.1.0 (/app_path)`
+Only one package in the dependency graph may specify the same links value. This helps ensure that only one copy of a native library is linked in the final binary. Try to adjust your dependencies so that only one package uses the `links = "Tauri"` value. For more information, see https://doc.rust-lang.org/cargo/reference/resolver.html#links.
+
+failed to select a version for `tauri` which could resolve this conflict
+```
+
 [![status](https://img.shields.io/badge/status-stable-blue.svg)](https://github.com/tauri-apps/tauri-egui/tree/dev)
 [![License](https://img.shields.io/badge/License-MIT%20or%20Apache%202-green.svg)](https://opencollective.com/tauri)
 [![test library](https://img.shields.io/github/workflow/status/tauri-apps/tauri-egui/test%20library?label=test%20library)](https://github.com/tauri-apps/tauri/actions?query=workflow%3A%22test+library%22)
